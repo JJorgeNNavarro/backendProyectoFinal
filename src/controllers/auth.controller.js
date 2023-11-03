@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import { createAccesToken } from "../libs/jwt.js";
+import userModel from "../models/user.model.js";
 
 export const register = async (req, res) => {
   const { email, password, username } = req.body;
@@ -70,5 +71,19 @@ export const logout = (req, res) => {
     expires: new Date(0),
   });
   return res.sendStatus(200);
+};
+
+export const profile = async (req, res) => {
+  const userFound = await User.findById(req.user.id);
+  if (!userFound)
+    return res.status(400).json({ message: "usuario no encontrado" });
+  res.send("profile");
+  return res.json({
+    id: userFound._id,
+    username: userFound.username,
+    email: userFound.email,
+    createdAt: userFound.createdAt,
+    updateAt: userFound.updatedAt,
+  });
 };
 //instalacion de BCRYPTJS para encriptar la contraseña
