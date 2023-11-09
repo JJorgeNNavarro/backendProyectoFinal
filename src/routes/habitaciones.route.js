@@ -4,7 +4,7 @@ import{
     getAllHabitaciones,
     editHabitaciones,
     deleteHabitaciones
-} from '../controllers/habitaciones.controller'
+} from '../controllers/habitaciones.controller.js'
 
 const router = express()
 

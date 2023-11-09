@@ -1,8 +1,8 @@
-import Habitaciones from '../models/habitaciones.models'
+import Habitaciones from '../models/habitaciones.models.js'
 
 
 //servicio para crear una nueva habitacion en la base de datos
-const createHabitacionService = async ({titulo, descripcion1,descripcion2,descripcion3,imagen1,imagen2,imagen3,imagen4}) => {
+export const createHabitacionService = async ({titulo, descripcion1,descripcion2,descripcion3,imagen1,imagen2,imagen3,imagen4}) => {
 
 const newHabitacion = new Habitaciones ({
     titulo, 
@@ -18,7 +18,7 @@ const newHabitacion = new Habitaciones ({
  return newHabitacion;
 }
 //servicio para obtener habitaciones 
- const getAllHabitacionesService = async ({titulo}) => {
+ export const getAllHabitacionesService = async ({titulo}) => {
  const query = {}
  if (titulo) query.titulo= titulo
 const habitacionesBuscadas = await Habitaciones.find(query) 
@@ -28,7 +28,7 @@ return habitacionesBuscadas;
  }
 
 // servicio para editar habitaciones
-const putHabitacionesService = async ({titulo, descripcion1,descripcion2,descripcion3,imagen1,imagen2,imagen3,imagen4, id}) =>{
+export const putHabitacionesService = async ({titulo, descripcion1,descripcion2,descripcion3,imagen1,imagen2,imagen3,imagen4, id}) =>{
    const query = {}
    if (titulo) query.titulo = titulo
    if (descripcion1) query.descripcion1 = descripcion1;
@@ -44,18 +44,13 @@ const putHabitacionesService = async ({titulo, descripcion1,descripcion2,descrip
 }
 
 //servicio para eliminar habitaciones
-const deleteHabitacionesService = async ({id}) => {
+export const deleteHabitacionesService = async ({id}) => {
     const habitacionEliminada = await Habitaciones.findById(id)
     if (!habitacionEliminada) throw new Error ('Habitacion no encontrada')
      await Habitaciones.findByIdAndDelete (id)
    
 }
 
-export default{
-createHabitacionService,
-getAllHabitacionesService,
-putHabitacionesService,
-deleteHabitacionesService
-}
+
 
  

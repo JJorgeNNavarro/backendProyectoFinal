@@ -1,4 +1,4 @@
-import { mongoose } from "mongoose"
+import { Schema, model } from "mongoose"
 
 const habitacionSchema = new Schema ({
 
@@ -8,32 +8,32 @@ const habitacionSchema = new Schema ({
     },
     descripcion1: {
         type: String,
-        required,
+        required: true,
     },
     descripcion2: {
         type: String,
-        required,
+        required: true,
     },
     descripcion3: {
         type: String,
-        required,
+        required:true,
     },
     imagen1:{
         type: String,
-        required,
+        required: true,
     },
     imagen2:{
         type: String,
-        required,
+        required: true,
     },
     imagen3:{
         type: String,
-        required,
+        required: true,
     },
     imagen4:{
         type: String,
-        required,
+        required: true,
     }
 
 })
-export default  mongoose.model ('Habitaciones', habitacionSchema)
+export default  model ('Habitaciones', habitacionSchema)

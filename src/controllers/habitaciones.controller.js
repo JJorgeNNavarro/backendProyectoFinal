@@ -3,10 +3,10 @@ import {
     getAllHabitacionesService,
     putHabitacionesService,
     deleteHabitacionesService
-} from '../services/habitaciones.servicios'
+} from '../services/habitaciones.servicios.js'
 
 //controlador para crear una habitacion 
-const createHabitaciones = async (req, res) => {
+export const createHabitaciones = async (req, res) => {
     try{
         const newHabitacion = await createHabitacionService (req.body)
         res.status(201).json ({newHabitacion})
@@ -15,7 +15,7 @@ const createHabitaciones = async (req, res) => {
     }
 }
 //controlador para obtener las habitaciones
-const getAllHabitaciones = async (req, res) => {
+export const getAllHabitaciones = async (req, res) => {
     try{
         const habitaciones = await getAllHabitacionesService(req.query)
         res.status(201).json ({habitaciones})
@@ -25,7 +25,7 @@ const getAllHabitaciones = async (req, res) => {
     }
 }
 //controlador para editar las habitaciones
-const editHabitaciones = async (req, res) => {
+export const editHabitaciones = async (req, res) => {
     try {
         const habitaciones = await putHabitacionesService(req.query)
         res.status(201).json ({habitaciones})
@@ -35,7 +35,7 @@ const editHabitaciones = async (req, res) => {
     }
 }
 //controlador para eliminar habitaciones
-const deleteHabitaciones = async (req, res) => {
+export const deleteHabitaciones = async (req, res) => {
     try{
         const habitaciones = await deleteHabitacionesService(req.query)
         res.status (201).json ({habitaciones})
@@ -45,10 +45,4 @@ const deleteHabitaciones = async (req, res) => {
     }
 }
 
-const controllerHabitacion = {
-    createHabitaciones,
-    getAllHabitaciones,
-    editHabitaciones,
-    deleteHabitaciones
-}
-export default controllerHabitacion
+
