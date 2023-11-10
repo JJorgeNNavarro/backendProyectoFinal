@@ -13,8 +13,9 @@ const reservaSchema = new Schema(
         habitacion: {
             type: Schema.Types.ObjectId,
             required: true,
+            ref: "Habitaciones",
         }
     }
 )
 
-export default model("reserva", reservaSchema)
+export default model("Reserva", reservaSchema)
