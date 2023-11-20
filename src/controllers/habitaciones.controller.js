@@ -27,7 +27,7 @@ export const getAllHabitaciones = async (req, res) => {
 //controlador para editar las habitaciones
 export const editHabitaciones = async (req, res) => {
     try {
-        const habitaciones = await putHabitacionesService(req.query)
+        const habitaciones = await putHabitacionesService(req.body)
         res.status(201).json ({habitaciones})
     } catch (error) {
         console.log(error);
@@ -38,7 +38,7 @@ export const editHabitaciones = async (req, res) => {
 export const deleteHabitaciones = async (req, res) => {
     try{
         const habitaciones = await deleteHabitacionesService(req.query)
-        res.status (201).json ({habitaciones})
+        res.status (200).json ({habitaciones})
     } catch (error) {
         console.log(error);
         res.status(500).json ({error})

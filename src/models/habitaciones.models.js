@@ -22,18 +22,15 @@ const habitacionSchema = new Schema ({
         type: String,
         required: true,
     },
-    imagen2:{
-        type: String,
-        required: true,
+    tipo: {
+        type: Number,
+        required: true
     },
-    imagen3:{
-        type: String,
-        required: true,
-    },
-    imagen4:{
-        type: String,
-        required: true,
+    precio: {
+        type: Number,
+        required: true
     }
+
 
 })
 export default  model ('Habitaciones', habitacionSchema)
