@@ -4,7 +4,7 @@ import { createAccesToken } from "../libs/jwt.js";
 import userModel from "../models/user.model.js";
 
 export const register = async (req, res) => {
-  const { email, password, username } = req.body;
+  const { email, password, username, rol } = req.body;
 
   try {
     const passwordHash = await bcrypt.hash(password, 10); //primer valor de lo que quiero hashear y la cantidad e veces en el segundo valor
@@ -12,6 +12,7 @@ export const register = async (req, res) => {
       username,
       email,
       password: passwordHash,
+      rol,
     });
     const userSaved = await newUser.save(); //cada await debe tener un async en la funcion que lo contiene, guarda el usuario con los datos actualizados
     const token = await createAccesToken({ id: userSaved._id });
@@ -23,6 +24,7 @@ export const register = async (req, res) => {
       id: userSaved._id,
       username: userSaved.username,
       email: userSaved.email,
+      rol: userSaved.rol,
       createdAt: userSaved.createdAt,
       updateAt: userSaved.updatedAt,
     });
@@ -51,7 +53,6 @@ export const login = async (req, res) => {
     //crear token
     const token = await createAccesToken({ id: userFound._id });
     res.cookie("token", token);
-
     // para guardar el usuario completo res.json(userSaved);
     //guardo solo algunos datos del usuario
     res.json({
@@ -60,6 +61,7 @@ export const login = async (req, res) => {
       email: userFound.email,
       createdAt: userFound.createdAt,
       updateAt: userFound.updatedAt,
+      token: { token },
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
