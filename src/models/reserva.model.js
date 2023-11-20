@@ -14,6 +14,11 @@ const reservaSchema = new Schema(
             type: Schema.Types.ObjectId,
             required: true,
             ref: "Habitaciones",
+        },
+        usuario: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: "Habitaciones"
         }
     }
 )

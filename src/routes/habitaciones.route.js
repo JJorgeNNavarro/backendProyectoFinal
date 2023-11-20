@@ -8,13 +8,13 @@ import{
 
 const router = express()
 
-router.get ('/api/habitaciones', getAllHabitaciones)
+router.get ('/', getAllHabitaciones)
 
-router.delete('/api/habitaciones/:id', deleteHabitaciones)
+router.delete('/', deleteHabitaciones)
 
-router.put ('/api/habitaciones/:id', editHabitaciones)
+router.put ('/', editHabitaciones)
 
-router.post ('/api/habitaciones', createHabitaciones)
+router.post ('/', createHabitaciones)
 
 export default router; 
 
