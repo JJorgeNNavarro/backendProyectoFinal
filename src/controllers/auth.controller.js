@@ -62,7 +62,7 @@ export const login = async (req, res) => {
       createdAt: userFound.createdAt,
       updateAt: userFound.updatedAt,
       token: { token },
-      rol: { rol },
+      rol: userFound.rol,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
