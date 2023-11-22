@@ -3,36 +3,41 @@ import Reservas from '../models/reserva.model.js'
 
 
 //servicio para crear una reserva
-export const createReservacionService = async ({fechaEntrada, fechaSalida, habitacion, usuario}) =>{
+export const createReservacionService = async ({fechaEntrada, fechaSalida, habitacion, nombre, email}) =>{
 
     const newReserva = new Reservas ({
         fechaEntrada,
         fechaSalida,
         habitacion,
-        usuario
+        nombre,
+        email
     })
     await newReserva.save ()
     return newReserva
 }
 
 //servicio para obtener reservas
-export const getAllReservasService = async ({fechaEntrada, fechaSalida, habitacion, usuario}) =>{
+export const getAllReservasService = async ({fechaEntrada, fechaSalida, habitacion, nombre, email, id}) =>{
     const query = {}
     if (fechaEntrada) query.fechaEntrada = fechaEntrada
     if (fechaSalida) query.fechaSalida = fechaSalida
     if (habitacion) query.habitacion = habitacion
-    if (usuario) query.usuario = usuario
+    if (nombre) query.nombre = nombre
+    if (email) query.email = email
+    if (id) query._id = id
+
     const reservasBuscadas = await Reservas.find(query)
     return reservasBuscadas
 }
 
 //servicio para editar reservas 
-export const patchReservasService = async ({fechaEntrada, fechaSalida, habitacion, id, usuario}) =>{
+export const patchReservasService = async ({fechaEntrada, fechaSalida, habitacion, id, nombre, email}) =>{
     const query = {}
     if (fechaEntrada) query.fechaEntrada = fechaEntrada
     if (fechaSalida) query.fechaSalida = fechaSalida
     if (habitacion) query.habitacion = habitacion
-    if (usuario) query.usuario = usuario
+    if (nombre) query.nombre = nombre
+    if (email) query.email = email
     const reservasEditadas = await Reservas.findByIdAndUpdate (id, query)
     return reservasEditadas
 }

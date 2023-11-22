@@ -18,12 +18,16 @@ const newHabitacion = new Habitaciones ({
  return newHabitacion;
 }
 //servicio para obtener habitaciones 
- export const getAllHabitacionesService = async ({tipo}) => {
- const query = {}
- if (tipo) query.tipo= tipo;
-const habitacionesBuscadas = await Habitaciones.find(query) 
+export const getAllHabitacionesService = async ({ tipo, idHabitacionBuscada }) => {
 
-return habitacionesBuscadas;
+    if (idHabitacionBuscada) {
+        const habitacionesBuscadas = await Habitaciones.find({_id:idHabitacionBuscada});
+    }
+    if (tipo) {
+        const habitacionesBuscadas = await Habitaciones.find({ tipo : tipo})
+    }
+
+    return habitacionesBuscadas;
 
  }
 
