@@ -9,12 +9,12 @@ import{
 
 const router = express ()
 
-router.get  ('/api/reservas', getAllReservas)
+router.get  ('/', getAllReservas)
 
-router.delete ('/api/reservas', deleteReservas)
+router.delete ('/', deleteReservas)
 
-router.patch ('/api/reservas', editReservas)
+router.patch ('/', editReservas)
 
-router.post ('/api/reservas', createReservas)
+router.post ('/', createReservas)
 
 export default router
