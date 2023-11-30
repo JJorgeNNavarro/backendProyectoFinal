@@ -1,3 +1,4 @@
+import { query } from "express";
 import Habitaciones from "../models/habitaciones.models.js";
 
 //servicio para crear una nueva habitacion en la base de datos
@@ -27,15 +28,10 @@ export const getAllHabitacionesService = async ({
   tipo,
   idHabitacionBuscada,
 }) => {
-  let habitacionesBuscadas;
-
-  if (idHabitacionBuscada) {
-    habitacionesBuscadas = await Habitaciones.find({
-      _id: idHabitacionBuscada,
-    });
-  } else if (tipo) {
-    habitacionesBuscadas = await Habitaciones.find({ tipo: tipo });
-  } else habitacionesBuscadas = await Habitaciones.find()
+  let query = {};
+  if (tipo) query.tipo = tipo;
+  if (idHabitacionBuscada) query._id = idHabitacionBuscada;
+  const habitacionesBuscadas = await Habitaciones.find (query)
 
   return habitacionesBuscadas;
 };
