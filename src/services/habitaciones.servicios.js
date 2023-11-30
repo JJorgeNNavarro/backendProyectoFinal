@@ -33,10 +33,9 @@ export const getAllHabitacionesService = async ({
     habitacionesBuscadas = await Habitaciones.find({
       _id: idHabitacionBuscada,
     });
-  }
-  if (tipo) {
+  } else if (tipo) {
     habitacionesBuscadas = await Habitaciones.find({ tipo: tipo });
-  }
+  } else habitacionesBuscadas = await Habitaciones.find()
 
   return habitacionesBuscadas;
 };
