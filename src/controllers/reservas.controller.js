@@ -31,7 +31,7 @@ export const getAllReservas = async (req, res) => {
 //controlador para editar las reservas 
 export const editReservas = async (req, res) =>{
     try{
-        const reservas = await patchReservasService(req.query)
+        const reservas = await patchReservasService(req.body)
         res.status(201).json ({reservas})
     } catch (error){
         console.log(error);
