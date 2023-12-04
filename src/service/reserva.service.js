@@ -1,7 +1,5 @@
 import Reservas from '../models/reserva.model.js'
 
-
-
 //servicio para crear una reserva
 export const createReservacionService = async ({fechaEntrada, fechaSalida, habitacion, nombre, email}) =>{
 
@@ -49,4 +47,26 @@ export const deleteReservasService = async ({id}) => {
     await Reservas.findByIdAndDelete(id)
 }
 
+//servicio para hacer que no se repitan las fechas reservadas
+export const superposicionReservas = async ({ fechaEntrada, fechaSalida, habitacion, nombre, email }) => {
+    const reservasExistentes = await Reservas.find({}); 
+    const existeSuperposicion = reservasExistentes.some(reserva => {
+        const superposicionFechaEntrada = new Date(fechaEntrada) < new Date(reserva.fechaSalida); // Comprobar si la fecha de entrada es anterior a la fecha de salida de la reserva existente
+        const superposicionFechaSalida = new Date(fechaSalida) > new Date(reserva.fechaEntrada); // Comprobar si la fecha de salida es posterior a la fecha de entrada de la reserva existente
+
+        return superposicionFechaEntrada && superposicionFechaSalida && mismaHabitacion;
+    });
+    if (existeSuperposicion) {
+        throw new Error('Días no disponibles');
+    }
+    const newReserva = new Reservas({
+        fechaEntrada,
+        fechaSalida,
+        habitacion,
+        nombre,
+        email
+    });
+    await newReserva.save();
+    return newReserva;
+};
 
