@@ -1,5 +1,21 @@
 import Reservas from '../models/reserva.model.js'
 
+
+//funcion para hacer que no se repitan las fechas reservadas
+const reservasSuperpuestas = (reservaExistentes, nuevaReserva) =>{
+    for (const reserva of reservaExistentes ) {
+        const fechaEntradaExistente = new Date (reserva.fechaEntrada) ;
+        const fechaSalidaExistente =new Date (reserva.fechaSalida) ;
+        const nuevaFechaEntrada =new Date (nuevaReserva.fechaEntrada);
+        const nuevaFechaSalida =new Date (nuevaReserva.fechaSalida); 
+        if (
+            (nuevaFechaEntrada >= fechaEntradaExistente && nuevaFechaEntrada < nuevaFechaSalida) ||
+            (nuevaFechaSalida > fechaEntradaExistente && nuevaFechaSalida >= fechaSalidaExistente) ||
+            (nuevaFechaEntrada <= fechaEntradaExistente && nuevaFechaSalida >= fechaSalidaExistente)
+        )return true    
+    }
+    return false
+    }
 //servicio para crear una reserva
 export const createReservacionService = async ({fechaEntrada, fechaSalida, habitacion, nombre, email}) =>{
 
@@ -10,6 +26,8 @@ export const createReservacionService = async ({fechaEntrada, fechaSalida, habit
         nombre,
         email
     })
+    const reservaExistentes = await Reservas.find({habitacion: habitacion})
+    if (reservasSuperpuestas (reservaExistentes, newReserva)) throw new Error ('Fechas no disponibles');
     await newReserva.save ()
     return newReserva
 }
@@ -46,27 +64,4 @@ export const deleteReservasService = async ({id}) => {
     if (!reservaEliminada) throw new Error ('reserva no encontrada')
     await Reservas.findByIdAndDelete(id)
 }
-
-//servicio para hacer que no se repitan las fechas reservadas
-export const superposicionReservas = async ({ fechaEntrada, fechaSalida, habitacion, nombre, email }) => {
-    const reservasExistentes = await Reservas.find({}); 
-    const existeSuperposicion = reservasExistentes.some(reserva => {
-        const superposicionFechaEntrada = new Date(fechaEntrada) < new Date(reserva.fechaSalida); // Comprobar si la fecha de entrada es anterior a la fecha de salida de la reserva existente
-        const superposicionFechaSalida = new Date(fechaSalida) > new Date(reserva.fechaEntrada); // Comprobar si la fecha de salida es posterior a la fecha de entrada de la reserva existente
-
-        return superposicionFechaEntrada && superposicionFechaSalida && mismaHabitacion;
-    });
-    if (existeSuperposicion) {
-        throw new Error('Días no disponibles');
-    }
-    const newReserva = new Reservas({
-        fechaEntrada,
-        fechaSalida,
-        habitacion,
-        nombre,
-        email
-    });
-    await newReserva.save();
-    return newReserva;
-};
 
